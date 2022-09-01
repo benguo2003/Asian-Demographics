@@ -1,1 +1,1 @@
-angular front-end for demographics database
+front-end for demographics web app - made with angular
