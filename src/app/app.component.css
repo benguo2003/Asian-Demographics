@@ -1,0 +1,246 @@
+:host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;    
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body{
+    background-color: rgb(247, 237, 237);
+    color: rgb(0, 0, 0);
+    overflow: auto;
+}
+
+.dark-theme{
+    background-color: rgb(33, 31, 31);
+    color: rgb(255, 255, 255);
+    overflow: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 8px 0;
+}
+
+a{
+    color: white !important;
+}
+
+.pageTitle{
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 45px;
+}
+
+p {
+    margin: 0;
+    font-size: 15px;
+}
+
+.toolbar {
+    position: flex;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    background-color: rgb(13, 101, 109);
+    font-weight: 550;
+    overflow: auto;
+}
+
+.toolbar img {
+    margin: 0 12px;
+}
+
+.toolbar #twitter-logo {
+    height: 40px;
+    margin: 0 0px;
+    margin-top: 5px;
+}
+
+.toolbar #youtube-logo {
+    height: 40px;
+    margin: 0 16px;
+    margin-top: 5px;
+}
+
+.toolbar #twitter-logo:hover,
+.toolbar #youtube-logo:hover {
+    opacity: 0.7;
+}
+
+.toolbar #logout{
+    margin-bottom: 14px;
+    margin-right: 12px;
+    background-color: rgb(143, 193, 201);
+    border-color: white;
+    border-radius: 8px;
+}
+
+.toggle {
+    text-align: center;
+    margin-left: 85px;
+    flex: 1;
+}
+
+.toggle #dayicon{
+    position: relative;
+    margin-right: 8px;
+    top: 4.5px;
+}
+
+.toggle #nighticon{
+    position: relative;
+    margin-left: 8px;
+    top: 4.5px;
+}
+
+
+.content {
+    display: flex;
+    margin: 60px auto 32px;
+    padding: 0 16px;
+    max-width: 960px;
+    flex-direction: column;
+    align-items: center;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+.space { 
+    margin-top: 50px; 
+}
+
+ul, li { 
+    margin: 0; 
+    padding: 0; 
+}
+
+.login {
+    text-align: center;
+}
+
+input {
+    border-radius: 4px;
+    padding: 10px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+button {
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+#error {
+    text-align: center; 
+    margin-top: 25px;
+    font-weight: bold;
+    color: red;
+}
+
+/* Mat-Tab-Label Styling */
+
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+    min-width: 50!important;
+    margin-right: 80px!important;
+    margin-left: 80px!important;
+    color: rgb(241, 14, 150)!important;
+    font-weight: 550;
+}
+
+/* Mat-Select-Search Styling */
+
+::ng-deep .mat-select-value-text {
+    color: rgb(241, 14, 150)!important;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    color: rgb(241, 14, 150) !important;
+}
+  
+::ng-deep.mat-form-field-underline {
+    background-color: rgb(241, 14, 150) !important;
+} 
+
+::ng-deep.mat-form-field-placeholder {
+    background-color: rgb(241, 14, 150) !important;
+}
+
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: rgb(241, 14, 150) !important;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label{
+    color: rgb(241, 14, 150) !important;
+}
+
+::ng-deep .mat-select-arrow{
+    color: rgb(241, 14, 150) !important;
+}
+
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgb(236, 195, 231)!important;
+}
+
+:host ::ng-deep  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: rgb(236, 195, 231)!important;
+}
+
+/* Responsiveness */
+
+@media screen and (max-width: 980px) {
+    ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+        margin-right: 10px!important;
+        margin-left: 10px!important;
+    }
+}
+
+@media screen and (max-width: 465px) {
+    .toggle {
+        margin-left: 25px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .pageTitle {
+        font-size: 30px;
+    }
+    ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+        margin-right: 3px!important;
+        margin-left: 3px!important;
+    }
+    .toggle {
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-width: 335px) {
+    .toolbar #youtube-logo, .toolbar #twitter-logo, .toolbar #logout{
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-width: 190px) {
+    .pageTitle {
+        font-size: 25px;
+    }
+}
+
+

@@ -1,0 +1,170 @@
+<div class="login" *ngIf="!isUserLoggedIn">
+  <div class="pageTitle" style="margin-top: 50px"> Login </div>
+  <div style="margin-top: 50px">
+    <form #myForm="ngForm">
+      <input id="user" name="username" placeholder="username" [(ngModel)]="username">
+      <input id="pass" name="password" placeholder="password" [(ngModel)]="password"> 
+      <button (click)="login(myForm)">Submit</button>
+    </form>
+    <div id="error" *ngIf="error"> 
+      Error: Invalid Login 
+    </div>
+  </div>
+</div>
+
+<body [ngClass]=" isDarkTheme? 'dark-theme' : '' " *ngIf="isUserLoggedIn">
+  <div class="toolbar" role="banner">
+    <a href = "https://www.yamibuy.com/en" target="_blank">
+      <img
+        width="40"
+        alt="Yami Logo"
+        src="favicon.ico" 
+      />
+    </a>
+    <a href = "https://www.yamibuy.com/en" target="_blank"><span>Yami</span></a>
+    <div class="toggle">
+      <mat-icon id="dayicon">
+        brightness_5
+      </mat-icon>
+      <mat-slide-toggle [formControl]= "toggleControl"></mat-slide-toggle>
+      <mat-icon id="nighticon">
+        bedtime
+      </mat-icon>
+    </div>
+    <button id="logout" (click)="logout()">Log Out</button>
+    <a aria-label="Yami on Twitter" target="_blank" rel="noopener" href="https://twitter.com/yamibuy" title="Twitter">
+      <svg id="twitter-logo" height="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+        <rect width="400" height="400" fill="none"/>
+        <path d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23" fill="#1DA1F2"/>
+      </svg>
+    </a>
+    <a aria-label="Yami on YouTube" target="_blank" rel="noopener" href="https://www.youtube.com/c/YamibuyTV" title="YouTube">
+      <svg id="youtube-logo" height="30" width="30" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000">
+        <path d="M0 0h24v24H0V0z" fill="none"/>
+        <path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/>
+      </svg>
+    </a>
+  </div>
+  <br> <br> <br> <br> <br>
+  <div class="pageTitle">
+    Asian Demographics
+  </div>
+  <div class="content">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <label matTooltip="Information on all US Cities"> 
+              City
+          </label>
+      </ng-template>
+        <div class="content">
+          <h1> Enter a City within the United States! </h1>
+          <p> Find out about your city's total population and Asian demographic! </p>
+          <div class="space"></div>
+          <p>
+            <mat-form-field color="primary">
+              <mat-select [formControl]="cityCtrl" placeholder="Search" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="cityFilterCtrl" placeholderLabel="Search"
+                  noEntriesFoundLabel="No Results Found"></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let city of filteredCities | async" [value]="city" 
+                            (click)="loadCityInfo(city)">
+                  {{city.name}}, {{city.state}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </p>
+          <p>
+            Selected City: {{cityCtrl.value?.name}}
+          </p>
+          <br><br>
+          <div style="text-align:center" *ngIf="showCity">
+            <h1>{{displayCity.name}} Information</h1>
+            <p> Longitude: {{ displayCity.longitude }} </p>
+            <p> Latitude: {{ displayCity.latitude }} </p>
+            <p> Population: {{ displayCity.population }} </p>
+            <p> Asian Percentage: {{ displayCity.asian_percent }}%</p>
+            <p> Estimated Asian Population: {{ round(displayCity.population * (displayCity.asian_percent/100)) }} </p>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab >
+        <ng-template mat-tab-label>
+          <label matTooltip="Information on all US Universities"> 
+              University
+          </label>
+      </ng-template>
+        <div class="content">
+          <h1> Enter a University within the United States! </h1>
+          <p> Find out about your university's total student population and Asian demographic! </p>
+          <div class="space"></div>
+          <p>
+            <mat-form-field color="primary">
+              <mat-select [formControl]="universityCtrl" placeholder="Search" #singleSelect >
+                <mat-option >
+                  <ngx-mat-select-search [formControl]="universityFilterCtrl" placeholderLabel="Search"
+                  noEntriesFoundLabel="No Results Found" ></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let university of filteredUniversities | async" [value]="university"
+                            (click)="loadUniversityInfo(university)">
+                  {{university.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </p>
+          <p>
+            Selected University: {{universityCtrl.value?.name}}
+          </p>
+          <br><br>
+          <div style="text-align:center" *ngIf="showUniversity">
+            <h1>{{displayUniversity.name}} Information</h1>
+            <p> Longitude: {{ displayUniversity.longitude }} </p>
+            <p> Latitude: {{ displayUniversity.latitude }} </p>
+            <p> Student Population: {{ displayUniversity.student_population }} </p>
+            <p> Asian Percentage: {{ displayUniversity.asian_percent }}%</p>
+            <p> Estimated Asian Population: {{ round(displayUniversity.student_population * (displayUniversity.asian_percent/100)) }} </p>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <label matTooltip="Information on all Neighborhoods Within Select Cities"> 
+              Neighborhood
+          </label>
+      </ng-template>
+        <div class="content">
+          <h1> Enter a Neighborhood within the Major Cities! </h1>
+          <p> Find out about your neighborhood's total population and Asian demographic! </p>
+          <div class="space"></div>
+          <p>
+            <mat-form-field color="primary">
+              <mat-select [formControl]="neighborhoodCtrl" placeholder="Search" #singleSelect >
+                <mat-option >
+                  <ngx-mat-select-search [formControl]="neighborhoodFilterCtrl" placeholderLabel="Search"
+                  noEntriesFoundLabel="No Results Found" ></ngx-mat-select-search>
+                </mat-option>
+                <mat-option *ngFor="let neighborhood of filteredNeighborhoods | async" [value]="neighborhood" 
+                            (click)="loadNeighborhoodInfo(neighborhood)">
+                  {{neighborhood.name}}, {{neighborhood.city}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </p>
+          <p>
+            Selected Neighborhood: {{neighborhoodCtrl.value?.name}}
+          </p>
+          <br><br>
+          <div style="text-align:center" *ngIf="showNeighborhood">
+            <h1>{{displayNeighborhood.name}} Information</h1>
+            <p> Longitude: {{ displayNeighborhood.longitude }} </p>
+            <p> Latitude: {{ displayNeighborhood.latitude }} </p>
+            <p> Population: {{ displayNeighborhood.population }} </p>
+            <p> Asian Percentage: {{ displayNeighborhood.asian_percent }}%</p>
+            <p> Estimated Asian Population: {{ round(displayNeighborhood.population * (displayNeighborhood.asian_percent/100)) }} </p>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</body>
